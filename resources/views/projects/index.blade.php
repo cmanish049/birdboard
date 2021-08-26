@@ -1,3 +1,3 @@
 @foreach($projects as $project)
-    <p>{{ $project->title }}</p>
+    <p><a href="{{ $project->path() }}">{{ $project->title }}</a></p>
 @endforeach

@@ -18,4 +18,10 @@ Route::get('/', function () {
 });
 
 Route::get('/projects', [\App\Http\Controllers\ProjectsController::class, 'index']);
-Route::post('/projects', [\App\Http\Controllers\ProjectsController::class, 'store']);
+Route::get('/projects/{project}', [\App\Http\Controllers\ProjectsController::class, 'show']);
+Route::post('/projects', [\App\Http\Controllers\ProjectsController::class, 'store'])->middleware('auth');
+//Route::get('/dashboard', function () {
+//    return view('dashboard');
+//})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
