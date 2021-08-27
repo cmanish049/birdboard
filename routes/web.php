@@ -17,11 +17,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/projects', [\App\Http\Controllers\ProjectsController::class, 'index']);
-Route::get('/projects/{project}', [\App\Http\Controllers\ProjectsController::class, 'show']);
-Route::post('/projects', [\App\Http\Controllers\ProjectsController::class, 'store'])->middleware('auth');
-//Route::get('/dashboard', function () {
-//    return view('dashboard');
-//})->middleware(['auth'])->name('dashboard');
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/dashboard', fn() => view('dashboard'))
+        ->name('dashboard');
+
+    Route::get('/projects', [\App\Http\Controllers\ProjectsController::class, 'index']);
+    Route::get('/projects/{project}', [\App\Http\Controllers\ProjectsController::class, 'show']);
+    Route::post('/projects', [\App\Http\Controllers\ProjectsController::class, 'store']);
+});
+
 
 require __DIR__.'/auth.php';
